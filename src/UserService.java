@@ -48,6 +48,9 @@ public class UserService {
         User foundedUser = userRepo.findByUserName(name)
                 .orElseThrow(() -> new RuntimeException("No such user found."));
         userRepo.remove(foundedUser);
+        if (foundedUser.equals(currentUser.get())) {
+            logOut();
+        }
         return foundedUser;
     }
 
