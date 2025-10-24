@@ -1,5 +1,7 @@
-import entity.User;
-import repo.UserRepo;
+package org.example;
+
+import org.example.entity.User;
+import org.example.repo.UserRepo;
 
 import java.util.List;
 import java.util.Optional;

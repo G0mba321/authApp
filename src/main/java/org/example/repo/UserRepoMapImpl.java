@@ -1,6 +1,8 @@
-package repo;
+package org.example.repo;
 
-import entity.User;
+
+
+import org.example.entity.User;
 
 import java.util.*;
 

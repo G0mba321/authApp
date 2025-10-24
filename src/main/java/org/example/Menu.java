@@ -1,5 +1,7 @@
-import entity.User;
-import repo.UserRepoMapImpl;
+package org.example;
+
+import org.example.entity.User;
+import org.example.repo.UserRepoMapImpl;
 
 import java.util.Scanner;
 
