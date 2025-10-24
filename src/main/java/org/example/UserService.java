@@ -15,12 +15,12 @@ public class UserService {
     }
 
     public User signUp(String name, String password) {
-           User newUser = new User(name, password);
-           if (userRepo.findByUserName(name).isPresent()) {
-               throw new RuntimeException("User with name - " + name + " already exists");
-           }
-           userRepo.save(newUser);
-           return newUser;
+        User newUser = new User(name, password);
+        if (userRepo.findByUserName(name).isPresent()) {
+            throw new RuntimeException("User with name - " + name + " already exists");
+        }
+        userRepo.save(newUser);
+        return newUser;
     }
 
     public User signIn(String name, String password) throws RuntimeException {
