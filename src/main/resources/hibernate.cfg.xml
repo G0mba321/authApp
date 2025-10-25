@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- JDBC -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/hibernate_test_db</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">8167</property>
+
+        <!-- Діалект PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Контекст сесії (thread для простих застосунків) -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Автоматичне керування схемою: validate | update | create | create-drop -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Логи SQL (корисно для дебагу) -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <!-- (опційно) налаштування пулу HikariCP замість вбудованого -->
+        <!--
+        <property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
+        <property name="hibernate.hikari.dataSourceClassName">org.postgresql.ds.PGSimpleDataSource</property>
+        <property name="hibernate.hikari.maximumPoolSize">10</property>
+        -->
+
+        <!-- Мапінги сутностей (вказуй повні імена класів) -->
+        <mapping class="org.example.entity.User"/>
+
+    </session-factory>
+</hibernate-configuration>

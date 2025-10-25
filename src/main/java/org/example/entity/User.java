@@ -1,57 +1,34 @@
 package org.example.entity;
 
-import java.util.Objects;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.UUID;
 
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Getter
+@Setter
+@Entity
+@Table(name = "users")
 public class User {
-    private final UUID userId;
+
+    @Id
+    @EqualsAndHashCode.Exclude
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
     private String username;
-    private String userPassword;
 
-    public User(String username, String userPassword) {
+    @EqualsAndHashCode.Exclude
+    private String password;
+
+
+
+    public User(String username, String Password) {
         this.username = username;
-        this.userPassword = userPassword;
-        this.userId = UUID.randomUUID();
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
+        this.password = Password;
+        this.id = UUID.randomUUID();
     }
 }

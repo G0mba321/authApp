@@ -1,13 +1,15 @@
 package org.example;
 
+import lombok.RequiredArgsConstructor;
 import org.example.entity.User;
 import org.example.repo.UserRepoMapImpl;
 
 import java.util.Scanner;
 
+@RequiredArgsConstructor
 public class Menu {
-    static final Scanner sc = new Scanner(System.in);
-    UserService userService = new UserService(new UserRepoMapImpl());
+    private static final Scanner sc = new Scanner(System.in);
+    private final UserService userService;
 
     public void menuTable() {
 

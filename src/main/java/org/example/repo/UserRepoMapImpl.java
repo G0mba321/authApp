@@ -10,12 +10,12 @@ public class UserRepoMapImpl implements UserRepo {
 
     @Override
     public void save(User user) {
-        userMap.put(user.getUserId(), user);
+        userMap.put(user.getId(), user);
     }
 
     @Override
     public void remove(User user) {
-        userMap.remove(user.getUserId());
+        userMap.remove(user.getId());
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserRepoMapImpl implements UserRepo {
     @Override
     public Optional<User> logInByUserNameAndPassword(String name, String password) {
         return userMap.values().stream()
-                .filter(user -> user.getUsername().equals(name) && user.getUserPassword().equals(password))
+                .filter(user -> user.getUsername().equals(name) && user.getPassword().equals(password))
                 .findFirst();
     }
 
@@ -37,5 +37,8 @@ public class UserRepoMapImpl implements UserRepo {
                 .findFirst();
     }
 
+    @Override
+    public void close() throws Exception {
 
+    }
 }
