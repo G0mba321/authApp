@@ -2,10 +2,10 @@ package org.example;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Role;
+import org.example.entity.User;
 import org.example.service.RoleService;
 import org.example.service.UserRoleService;
 import org.example.service.UserService;
-import org.example.entity.User;
 
 import java.util.Scanner;
 

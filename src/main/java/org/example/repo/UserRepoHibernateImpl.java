@@ -44,7 +44,7 @@ public class UserRepoHibernateImpl implements UserRepo {
             session.beginTransaction();
             User user = session.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password",
                             User.class).setParameter("username", name).setParameter("password", password)
-                            .getSingleResult();
+                    .getSingleResult();
             session.getTransaction().commit();
             return Optional.ofNullable(user);
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class UserRepoHibernateImpl implements UserRepo {
             session.beginTransaction();
             User user = session.createQuery("SELECT u FROM User u Where  u.username = :username",
                             User.class).setParameter("username", name)
-                            .getSingleResult();
+                    .getSingleResult();
             session.getTransaction().commit();
             return Optional.ofNullable(user);
         } catch (Exception e) {

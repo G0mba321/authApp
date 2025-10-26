@@ -30,7 +30,7 @@ public class RoleRepoHibernateImpl implements RoleRepo {
 
     @Override
     public List<Role> findAll() {
-        try (Session session = HibernateConnection.getSessionFactory().getCurrentSession()){
+        try (Session session = HibernateConnection.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             List<Role> roles = session.createQuery("SELECT r FROM Role r", Role.class).getResultList();
             session.getTransaction().commit();

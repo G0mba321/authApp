@@ -2,11 +2,11 @@ import org.example.Menu;
 import org.example.connection.HibernateConnection;
 import org.example.repo.RoleRepo;
 import org.example.repo.RoleRepoHibernateImpl;
+import org.example.repo.UserRepo;
+import org.example.repo.UserRepoHibernateImpl;
 import org.example.service.RoleService;
 import org.example.service.UserRoleService;
 import org.example.service.UserService;
-import org.example.repo.UserRepo;
-import org.example.repo.UserRepoHibernateImpl;
 
 void main() throws Exception {
     HibernateConnection.initConnection();

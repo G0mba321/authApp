@@ -6,12 +6,12 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateConnection {
 
+    @Getter
+    private static SessionFactory sessionFactory;
+
     public static void initConnection() {
         sessionFactory = buildSessionFactory();
     }
-    
-    @Getter
-    private static SessionFactory sessionFactory;
 
     private static SessionFactory buildSessionFactory() {
         return new Configuration()

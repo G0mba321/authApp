@@ -60,7 +60,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User saveUser (User user) {
+    public User saveUser(User user) {
         return userRepo.save(user);
     }
 
