@@ -9,8 +9,9 @@ public class UserRepoMapImpl implements UserRepo {
     private final Map<UUID, User> userMap = new HashMap<>();
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         userMap.put(user.getId(), user);
+        return user;
     }
 
     @Override
@@ -37,8 +38,4 @@ public class UserRepoMapImpl implements UserRepo {
                 .findFirst();
     }
 
-    @Override
-    public void close() throws Exception {
-
-    }
 }

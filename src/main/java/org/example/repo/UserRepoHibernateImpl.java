@@ -1,31 +1,27 @@
 package org.example.repo;
 
+import org.example.connection.HibernateConnection;
 import org.example.entity.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 import java.util.Optional;
 
 public class UserRepoHibernateImpl implements UserRepo {
 
-    private final SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .buildSessionFactory();
-
     @Override
-    public void save(User user) {
-        try (Session session = factory.getCurrentSession()){
+    public User save(User user) {
+        try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.persist(user);
+            session.merge(user);
             session.getTransaction().commit();
         }
+        return user;
     }
 
     @Override
     public void remove(User user) {
-        try (Session session = factory.getCurrentSession()){
+        try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.remove(user);
             session.getTransaction().commit();
@@ -34,7 +30,7 @@ public class UserRepoHibernateImpl implements UserRepo {
 
     @Override
     public List<User> findAll() {
-        try (Session session = factory.getCurrentSession()){
+        try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
             List<User> users = session.createQuery("SELECT u FROM User u", User.class).getResultList();
             session.getTransaction().commit();
@@ -44,7 +40,7 @@ public class UserRepoHibernateImpl implements UserRepo {
 
     @Override
     public Optional<User> logInByUserNameAndPassword(String name, String password) {
-        try (Session session = factory.getCurrentSession()) {
+        try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
             User user = session.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password",
                             User.class).setParameter("username", name).setParameter("password", password)
@@ -58,7 +54,7 @@ public class UserRepoHibernateImpl implements UserRepo {
 
     @Override
     public Optional<User> findByUserName(String name) {
-        try (Session session = factory.getCurrentSession()) {
+        try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
             User user = session.createQuery("SELECT u FROM User u Where  u.username = :username",
                             User.class).setParameter("username", name)
@@ -68,10 +64,5 @@ public class UserRepoHibernateImpl implements UserRepo {
         } catch (Exception e) {
             return Optional.empty();
         }
-    }
-
-    @Override
-    public void close() throws Exception {
-        factory.close();
     }
 }

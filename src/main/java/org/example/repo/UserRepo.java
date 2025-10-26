@@ -6,9 +6,9 @@ import org.example.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepo extends AutoCloseable{
+public interface UserRepo {
 
-    void save(User user);
+    User save(User user);
 
     void remove(User user);
 

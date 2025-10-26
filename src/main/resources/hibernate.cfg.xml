@@ -34,6 +34,7 @@
 
         <!-- Мапінги сутностей (вказуй повні імена класів) -->
         <mapping class="org.example.entity.User"/>
+        <mapping class="org.example.entity.Role"/>
 
     </session-factory>
 </hibernate-configuration>

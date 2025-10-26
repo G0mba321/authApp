@@ -1,4 +1,4 @@
-package org.example;
+package org.example.service;
 
 import org.example.entity.User;
 import org.example.repo.UserRepo;
@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public class UserService {
     private final UserRepo userRepo;
-    private Optional<User> currentUser = Optional.empty();
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
@@ -26,14 +25,14 @@ public class UserService {
     public User signIn(String name, String password) throws RuntimeException {
         Optional<User> optionalUser = userRepo.logInByUserNameAndPassword(name, password);
         User user = optionalUser.orElseThrow(() -> new RuntimeException("No such user found."));
-        currentUser = Optional.of(user);
+        AuthorizationService.currentUser = Optional.of(user);
         return user;
     }
 
     public User logOut() {
-        if (currentUser.isPresent()) {
-            Optional<User> logOutUser = currentUser;
-            currentUser = Optional.empty();
+        if (AuthorizationService.currentUser.isPresent()) {
+            Optional<User> logOutUser = AuthorizationService.currentUser;
+            AuthorizationService.currentUser = Optional.empty();
             return logOutUser.get();
         } else {
             throw new RuntimeException("No such user found.");
@@ -41,25 +40,28 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
-        isAuthorized();
+        AuthorizationService.isAuthorized();
         return userRepo.findAll();
     }
 
     public User removeUser(String name) {
-        isAuthorized();
+        AuthorizationService.isAuthorized();
         User foundedUser = userRepo.findByUserName(name)
                 .orElseThrow(() -> new RuntimeException("No such user found."));
         userRepo.remove(foundedUser);
-        if (foundedUser.equals(currentUser.get())) {
+        if (foundedUser.equals(AuthorizationService.currentUser.get())) {
             logOut();
         }
         return foundedUser;
     }
 
-    private void isAuthorized() {
-        if (currentUser.isEmpty()) {
-            throw new RuntimeException("You are not authorized");
-        }
+    public User findUserByName(String name) {
+        return userRepo.findByUserName(name)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User saveUser (User user) {
+        return userRepo.save(user);
     }
 
 }
